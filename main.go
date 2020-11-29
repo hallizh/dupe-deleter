@@ -25,6 +25,7 @@ func run() {
 
 	hashes := make([]string, 0)
 	first := false
+	_ = first // to silence the error coming because of the commented out line below
 	err = filepath.Walk(searchDir, func(path string, f os.FileInfo, err error) error {
 		if f.IsDir() || !isImage(path) || isBackupDir(path) {
 			return nil
@@ -33,7 +34,7 @@ func run() {
 		if !exists(hashes, hashed) {
 			hashes = append(hashes, hashed)
 		} else {
-			moveToBackup(path, f.Name(), first)
+			// moveToBackup(path, f.Name(), first) // Commented out, just to be safe.
 			first = false
 		}
 		return err
